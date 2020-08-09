@@ -387,70 +387,70 @@ class condGANTrainer(object):
             noise = Variable(torch.FloatTensor(batch_size, nz), volatile=True)
             noise = noise.cuda()
 
-            #cont
+            for netg in netG_list:
 
-            model_dir = cfg.TRAIN.NET_G
-            state_dict = \
-                torch.load(model_dir, map_location=lambda storage, loc: storage)
-            # state_dict = torch.load(cfg.TRAIN.NET_G)
-            print("LINE==380")
-            print("-----------------netG------------------------")
-            print(netG)
-            print("--------------state-dict---------------------")
-            #print(state_dict)
-            netG.load_state_dict(state_dict)
-            print('Load G from: ', model_dir)
-            print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 
-            # the path to save generated images
-            s_tmp = model_dir[:model_dir.rfind('.pth')]
-            save_dir = '%s/%s' % (s_tmp, split_dir)
-            print('save_dir:' , save_dir)
-            mkdir_p(save_dir)
+                model_dir = netg
+                state_dict = torch.load(model_dir, map_location=lambda storage, loc: storage)
+                # state_dict = torch.load(cfg.TRAIN.NET_G)
+                print("LINE==380")
+                print("-----------------netG------------------------")
+                print(netG)
+                print("--------------state-dict---------------------")
+                #print(state_dict)
+                netG.load_state_dict(state_dict)
+                print('Load G from: ', model_dir)
+                print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 
-            cnt = 0
+                # the path to save generated images
+                s_tmp = model_dir[:model_dir.rfind('.pth')]
+                save_dir = '%s/%s' % (s_tmp, split_dir)
+                print('save_dir:' , save_dir)
+                mkdir_p(save_dir)
 
-            for _ in range(1):  # (cfg.TEXT.CAPTIONS_PER_IMAGE):
-                for step, data in enumerate(self.data_loader, 0):
-                    cnt += batch_size
-                    if step % 100 == 0:
-                        print('step: ', step)
-                    # if step > 50:
-                    #     break
+                cnt = 0
 
-                    imgs, captions, cap_lens, class_ids, keys = prepare_data(data)
+                for _ in range(1):  # (cfg.TEXT.CAPTIONS_PER_IMAGE):
+                    for step, data in enumerate(self.data_loader, 0):
+                        cnt += batch_size
+                        if step % 100 == 0:
+                            print('step: ', step)
+                        # if step > 50:
+                        #     break
 
-                    hidden = text_encoder.init_hidden(batch_size)
-                    # words_embs: batch_size x nef x seq_len
-                    # sent_emb: batch_size x nef
-                    words_embs, sent_emb = text_encoder(captions, cap_lens, hidden)
-                    words_embs, sent_emb = words_embs.detach(), sent_emb.detach()
-                    mask = (captions == 0)
-                    num_words = words_embs.size(2)
-                    if mask.size(1) > num_words:
-                        mask = mask[:, :num_words]
+                        imgs, captions, cap_lens, class_ids, keys = prepare_data(data)
 
-                    #######################################################
-                    # (2) Generate fake images
-                    ######################################################
-                    noise.data.normal_(0, 1)
-                    fake_imgs, _, _, _ = netG(noise, sent_emb, words_embs, mask)
-                    for j in range(batch_size):
-                        s_tmp = '%s/single/%s' % (save_dir, keys[j])
-                        folder = s_tmp[:s_tmp.rfind('/')]
-                        if not os.path.isdir(folder):
-                            print('Make a new folder: ', folder)
-                            mkdir_p(folder)
-                        k = -1
-                        # for k in range(len(fake_imgs)):
-                        im = fake_imgs[k][j].data.cpu().numpy()
-                        # [-1, 1] --> [0, 255]
-                        im = (im + 1.0) * 127.5
-                        im = im.astype(np.uint8)
-                        im = np.transpose(im, (1, 2, 0))
-                        im = Image.fromarray(im)
-                        fullpath = '%s_s%d.png' % (s_tmp, k)
-                        im.save(fullpath)
+                        hidden = text_encoder.init_hidden(batch_size)
+                        # words_embs: batch_size x nef x seq_len
+                        # sent_emb: batch_size x nef
+                        words_embs, sent_emb = text_encoder(captions, cap_lens, hidden)
+                        words_embs, sent_emb = words_embs.detach(), sent_emb.detach()
+                        mask = (captions == 0)
+                        num_words = words_embs.size(2)
+                        if mask.size(1) > num_words:
+                            mask = mask[:, :num_words]
+
+                        #######################################################
+                        # (2) Generate fake images
+                        ######################################################
+                        noise.data.normal_(0, 1)
+                        fake_imgs, _, _, _ = netG(noise, sent_emb, words_embs, mask)
+                        for j in range(batch_size):
+                            s_tmp = '%s/single/%s' % (save_dir, keys[j])
+                            folder = s_tmp[:s_tmp.rfind('/')]
+                            if not os.path.isdir(folder):
+                                print('Make a new folder: ', folder)
+                                mkdir_p(folder)
+                            k = -1
+                            # for k in range(len(fake_imgs)):
+                            im = fake_imgs[k][j].data.cpu().numpy()
+                            # [-1, 1] --> [0, 255]
+                            im = (im + 1.0) * 127.5
+                            im = im.astype(np.uint8)
+                            im = np.transpose(im, (1, 2, 0))
+                            im = Image.fromarray(im)
+                            fullpath = '%s_s%d.png' % (s_tmp, k)
+                            im.save(fullpath)
 
     def gen_example(self, data_dic):
         if cfg.TRAIN.NET_G == '':

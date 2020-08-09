@@ -350,18 +350,72 @@ class condGANTrainer(object):
             print('Error: the path for morels is not found!')
         else:
             netG_list = [
+                '../models/netG_epoch_10.pth',
+                '../models/netG_epoch_20.pth',
+                '../models/netG_epoch_30.pth',
+                '../models/netG_epoch_40.pth',
                 '../models/netG_epoch_50.pth',
                 '../models/netG_epoch_60.pth',
                 '../models/netG_epoch_70.pth',
                 '../models/netG_epoch_80.pth',
                 '../models/netG_epoch_90.pth',
+
                 '../models/netG_epoch_100.pth',
                 '../models/netG_epoch_110.pth',
                 '../models/netG_epoch_120.pth',
                 '../models/netG_epoch_130.pth',
                 '../models/netG_epoch_140.pth',
                 '../models/netG_epoch_150.pth',
-                '../models/netG_epoch_160.pth'
+                '../models/netG_epoch_160.pth',
+                '../models/netG_epoch_170.pth',
+                '../models/netG_epoch_180.pth',
+                '../models/netG_epoch_190.pth',
+
+                '../models/netG_epoch_200.pth',
+                '../models/netG_epoch_210.pth',
+                '../models/netG_epoch_220.pth',
+                '../models/netG_epoch_230.pth',
+                '../models/netG_epoch_240.pth',
+                '../models/netG_epoch_250.pth',
+                # '../models/netG_epoch_260.pth',
+                # '../models/netG_epoch_270.pth',
+                # '../models/netG_epoch_280.pth',
+                # '../models/netG_epoch_290.pth',
+
+                # '../models/netG_epoch_300.pth',
+                # '../models/netG_epoch_310.pth',
+                # '../models/netG_epoch_320.pth',
+                # '../models/netG_epoch_330.pth',
+                # '../models/netG_epoch_340.pth',
+                # '../models/netG_epoch_350.pth',
+                # '../models/netG_epoch_360.pth',
+                '../models/netG_epoch_370.pth',
+                '../models/netG_epoch_380.pth',
+                '../models/netG_epoch_390.pth',
+
+                '../models/netG_epoch_400.pth',
+                '../models/netG_epoch_410.pth',
+                '../models/netG_epoch_420.pth',
+                '../models/netG_epoch_430.pth',
+                '../models/netG_epoch_440.pth',
+                '../models/netG_epoch_450.pth',
+                '../models/netG_epoch_460.pth',
+                # '../models/netG_epoch_470.pth',
+                # '../models/netG_epoch_480.pth',
+                # '../models/netG_epoch_490.pth',
+
+                # '../models/netG_epoch_500.pth',
+                # '../models/netG_epoch_510.pth',
+                # '../models/netG_epoch_520.pth',
+                # '../models/netG_epoch_530.pth',
+                # '../models/netG_epoch_540.pth',
+                # '../models/netG_epoch_550.pth',
+                # '../models/netG_epoch_560.pth',
+                '../models/netG_epoch_570.pth',
+                '../models/netG_epoch_580.pth',
+                '../models/netG_epoch_590.pth',
+
+                '../models/netG_epoch_600.pth'
             ]
             if split_dir == 'test':
                 split_dir = 'valid'

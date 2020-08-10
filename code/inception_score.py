@@ -113,7 +113,7 @@ def get_inception_score(sess, images, pred_op):
     preds = np.concatenate(preds, 0)
     scores = []
     for i in range(splits):
-        print ('split :', i, ' of :', splits)
+        #print ('split :', i, ' of :', splits)
         istart = i * preds.shape[0] // splits
         iend = (i + 1) * preds.shape[0] // splits
         part = preds[istart:iend, :]

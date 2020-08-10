@@ -350,10 +350,11 @@ class condGANTrainer(object):
             print('Error: the path for morels is not found!')
         else:
             netG_list = [
-                '../models/netG_epoch_10.pth',
-                '../models/netG_epoch_20.pth',
-                '../models/netG_epoch_30.pth',
-                '../models/netG_epoch_40.pth',
+                '../models/netG_epoch_0.pth',
+                # '../models/netG_epoch_10.pth',
+                # '../models/netG_epoch_20.pth',
+                # '../models/netG_epoch_30.pth',
+                # '../models/netG_epoch_40.pth',
                 '../models/netG_epoch_50.pth',
                 '../models/netG_epoch_60.pth',
                 '../models/netG_epoch_70.pth',
@@ -367,16 +368,16 @@ class condGANTrainer(object):
                 '../models/netG_epoch_140.pth',
                 '../models/netG_epoch_150.pth',
                 '../models/netG_epoch_160.pth',
-                '../models/netG_epoch_170.pth',
-                '../models/netG_epoch_180.pth',
-                '../models/netG_epoch_190.pth',
+                # '../models/netG_epoch_170.pth',
+                # '../models/netG_epoch_180.pth',
+                # '../models/netG_epoch_190.pth',
 
-                '../models/netG_epoch_200.pth',
-                '../models/netG_epoch_210.pth',
-                '../models/netG_epoch_220.pth',
-                '../models/netG_epoch_230.pth',
-                '../models/netG_epoch_240.pth',
-                '../models/netG_epoch_250.pth',
+                # '../models/netG_epoch_200.pth',
+                # '../models/netG_epoch_210.pth',
+                # '../models/netG_epoch_220.pth',
+                # '../models/netG_epoch_230.pth',
+                # '../models/netG_epoch_240.pth',
+                # '../models/netG_epoch_250.pth',
                 # '../models/netG_epoch_260.pth',
                 # '../models/netG_epoch_270.pth',
                 # '../models/netG_epoch_280.pth',
@@ -389,17 +390,17 @@ class condGANTrainer(object):
                 # '../models/netG_epoch_340.pth',
                 # '../models/netG_epoch_350.pth',
                 # '../models/netG_epoch_360.pth',
-                '../models/netG_epoch_370.pth',
-                '../models/netG_epoch_380.pth',
-                '../models/netG_epoch_390.pth',
+                # '../models/netG_epoch_370.pth',
+                # '../models/netG_epoch_380.pth',
+                # '../models/netG_epoch_390.pth',
 
-                '../models/netG_epoch_400.pth',
-                '../models/netG_epoch_410.pth',
-                '../models/netG_epoch_420.pth',
-                '../models/netG_epoch_430.pth',
-                '../models/netG_epoch_440.pth',
-                '../models/netG_epoch_450.pth',
-                '../models/netG_epoch_460.pth',
+                # '../models/netG_epoch_400.pth',
+                # '../models/netG_epoch_410.pth',
+                # '../models/netG_epoch_420.pth',
+                # '../models/netG_epoch_430.pth',
+                # '../models/netG_epoch_440.pth',
+                # '../models/netG_epoch_450.pth',
+                # '../models/netG_epoch_460.pth',
                 # '../models/netG_epoch_470.pth',
                 # '../models/netG_epoch_480.pth',
                 # '../models/netG_epoch_490.pth',
@@ -411,11 +412,11 @@ class condGANTrainer(object):
                 # '../models/netG_epoch_540.pth',
                 # '../models/netG_epoch_550.pth',
                 # '../models/netG_epoch_560.pth',
-                '../models/netG_epoch_570.pth',
-                '../models/netG_epoch_580.pth',
-                '../models/netG_epoch_590.pth',
+                # '../models/netG_epoch_570.pth',
+                # '../models/netG_epoch_580.pth',
+                # '../models/netG_epoch_590.pth',
 
-                '../models/netG_epoch_600.pth'
+                # '../models/netG_epoch_600.pth'
             ]
             if split_dir == 'test':
                 split_dir = 'valid'
@@ -447,10 +448,7 @@ class condGANTrainer(object):
                 model_dir = netg
                 state_dict = torch.load(model_dir, map_location=lambda storage, loc: storage)
                 # state_dict = torch.load(cfg.TRAIN.NET_G)
-                print("LINE==380")
-                print("-----------------netG------------------------")
-                print(netG)
-                print("--------------state-dict---------------------")
+                print("----------state-dict---------------------")
                 #print(state_dict)
                 netG.load_state_dict(state_dict)
                 print('Load G from: ', model_dir)
@@ -493,7 +491,6 @@ class condGANTrainer(object):
                             s_tmp = '%s/single/%s' % (save_dir, keys[j])
                             folder = s_tmp[:s_tmp.rfind('/')]
                             if not os.path.isdir(folder):
-                                print('Make a new folder: ', folder)
                                 mkdir_p(folder)
                             k = -1
                             # for k in range(len(fake_imgs)):

@@ -92,8 +92,8 @@ def get_inception_score(sess, images, pred_op):
     indices = list(np.arange(num_examples))
     np.random.shuffle(indices)
 
-    print ("Number of Examples: ", num_examples)
-    print ("Number of batches: ", n_batches)
+    #print ("Number of Examples: ", num_examples)
+    #print ("Number of batches: ", n_batches)
 
 
     for i in range(n_batches):
@@ -109,19 +109,19 @@ def get_inception_score(sess, images, pred_op):
             img = preprocess(img)
             inp.append(img)
 
-        if i < 3 :
-            print ("length of input:", len(inp))
-            print ("first of input:", inp[0].shape)
+        #if i < 3 :
+            #print ("length of input:", len(inp))
+            #print ("first of input:", inp[0].shape)
 
         
-        print("%d of %d batches" % (i, n_batches))
+        #print("%d of %d batches" % (i, n_batches))
         # inp = inps[(i * bs):min((i + 1) * bs, len(inps))]
         inp = np.concatenate(inp, 0)
         #  print('inp', inp.shape)
         pred = sess.run(pred_op, {'inputs:0': inp})
 
 
-        if i < 3 :
+        if i < -3 :
             print("Prediction Shape: ",pred.shape)
             #print("First Prediction: ",pred[0])
             print("Sum of First Prediction: ",pred[0].sum())
@@ -132,7 +132,7 @@ def get_inception_score(sess, images, pred_op):
 
 
         preds.append(pred)
-        if i % 5 == 0:
+        if i % 25 == 0:
             print('Batch ', i)
             print('inp', inp.shape, inp.max(), inp.min())
             print('pred', pred.shape, pred.max(), pred.min())
@@ -150,7 +150,7 @@ def get_inception_score(sess, images, pred_op):
         scores.append(np.exp(kl))
 
 
-        if i < 3 :
+        if i < -3 :
             print("i_start: ", istart)
             print("i_end: ", iend)
             print("part: ", part)

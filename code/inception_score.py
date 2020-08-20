@@ -132,13 +132,11 @@ def get_inception_score(sess, images, pred_op):
 
 
         preds.append(pred)
-        if i % 100 == 0:
+        if i % 5 == 0:
             print('Batch ', i)
             print('inp', inp.shape, inp.max(), inp.min())
             print('pred', pred.shape, pred.max(), pred.min())
     preds = np.concatenate(preds, 0)
-
-    print("final preds :", preds)
 
 
     scores = []

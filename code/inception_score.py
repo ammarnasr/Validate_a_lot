@@ -47,7 +47,7 @@ tf.app.flags.DEFINE_string('checkpoint_dir', './inception_finetuned_models/birds
 
 tf.app.flags.DEFINE_string('image_folder', '/Users/han/Documents/CUB_200_2011/CUB_200_2011/images', """Path where to load the images """)
 
-tf.app.flags.DEFINE_integer('num_classes', 100, """Number of classes """)
+tf.app.flags.DEFINE_integer('num_classes', 50, """Number of classes """)
 tf.app.flags.DEFINE_integer('splits', 10,"""Number of splits """)
 tf.app.flags.DEFINE_integer('batch_size', 64, "batch size")
 tf.app.flags.DEFINE_integer('gpu', 0, "The ID of GPU to use")

@@ -123,7 +123,7 @@ def get_inception_score(sess, images, pred_op):
 
         if i < 3 :
             print("Prediction Shape: ",pred.shape)
-            print("First Prediction: ",pred[0])
+            #print("First Prediction: ",pred[0])
             print("Sum of First Prediction: ",pred[0].sum())
             print("Max of First Prediction: ",pred[0].max())
             print("Min of First Prediction: ",pred[0].min())
@@ -148,6 +148,15 @@ def get_inception_score(sess, images, pred_op):
         kl = (part * (np.log(part) - np.log(np.expand_dims(np.mean(part, 0), 0))))
         kl = np.mean(np.sum(kl, 1))
         scores.append(np.exp(kl))
+
+
+        if i < 3 :
+            print("i_start: ", istart)
+            print("i_end: ", iend)
+            print("part: ", part)
+
+
+
     print('################################################################################')
     print('mean:', "%.2f" % np.mean(scores), 'std:', "%.2f" % np.std(scores))
     print('Mean Inception Score : ' + str((np.mean(scores)).item()) )

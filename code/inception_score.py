@@ -91,9 +91,16 @@ def get_inception_score(sess, images, pred_op):
     n_batches = int(math.floor(float(num_examples) / float(bs)))
     indices = list(np.arange(num_examples))
     np.random.shuffle(indices)
+
+    print ("Number of Examples: ", num_examples)
+    print ("Number of batches: ", n_batches)
+
+
     for i in range(n_batches):
         inp = []
         # print('i*bs', i*bs)
+
+
         for j in range(bs):
             if (i*bs + j) == num_examples:
                 break
@@ -101,16 +108,34 @@ def get_inception_score(sess, images, pred_op):
             # print('*****', img.shape)
             img = preprocess(img)
             inp.append(img)
-        # print("%d of %d batches" % (i, n_batches))
+
+        if i < 3 :
+            print ("length of input:", len(inp))
+            print ("first of input:", inp[0].shape)
+
+        
+        print("%d of %d batches" % (i, n_batches))
         # inp = inps[(i * bs):min((i + 1) * bs, len(inps))]
         inp = np.concatenate(inp, 0)
         #  print('inp', inp.shape)
         pred = sess.run(pred_op, {'inputs:0': inp})
+
+
+        if i < 3 :
+            print(pred.shape)
+            print(pred)
+
+
+
         preds.append(pred)
         # if i % 100 == 0:
         #     print('Batch ', i)
         #     print('inp', inp.shape, inp.max(), inp.min())
     preds = np.concatenate(preds, 0)
+
+    print("final preds :", preds)
+
+
     scores = []
     for i in range(splits):
         #print ('split :', i, ' of :', splits)
@@ -225,56 +250,56 @@ def main(unused_argv=None):
 
 
                 imagePathList = [
-                    # '/content/AttnGAN/models/netG_epoch_0/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_10/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_20/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_30/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_40/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_50/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_60/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_70/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_80/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_90/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_0/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_10/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_20/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_30/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_40/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_50/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_60/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_70/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_80/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_90/valid/single/',
 
-                    # '/content/AttnGAN/models/netG_epoch_100/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_110/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_120/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_130/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_140/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_150/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_160/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_170/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_180/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_190/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_100/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_110/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_120/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_130/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_140/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_150/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_160/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_170/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_180/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_190/valid/single/',
                     
-                    # '/content/AttnGAN/models/netG_epoch_200/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_210/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_220/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_230/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_240/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_250/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_260/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_270/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_280/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_290/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_200/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_210/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_220/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_230/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_240/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_250/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_260/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_270/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_280/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_290/valid/single/',
                     
-                    # '/content/AttnGAN/models/netG_epoch_300/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_310/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_320/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_330/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_340/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_350/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_360/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_370/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_380/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_390/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_300/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_310/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_320/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_330/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_340/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_350/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_360/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_370/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_380/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_390/valid/single/',
                     
-                    # '/content/AttnGAN/models/netG_epoch_400/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_410/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_420/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_430/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_440/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_450/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_400/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_410/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_420/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_430/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_440/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_450/valid/single/',
                     '/content/AttnGAN/models/netG_epoch_460/valid/single/',
                     '/content/AttnGAN/models/netG_epoch_470/valid/single/',
                     '/content/AttnGAN/models/netG_epoch_480/valid/single/',
@@ -288,10 +313,10 @@ def main(unused_argv=None):
                     '/content/AttnGAN/models/netG_epoch_550/valid/single/',
                     '/content/AttnGAN/models/netG_epoch_560/valid/single/',
                     '/content/AttnGAN/models/netG_epoch_570/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_580/valid/single/',
-                    # '/content/AttnGAN/models/netG_epoch_590/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_580/valid/single/',
+                    '/content/AttnGAN/models/netG_epoch_590/valid/single/',
                     
-                    # '/content/AttnGAN/models/netG_epoch_600/valid/single/'
+                    '/content/AttnGAN/models/netG_epoch_600/valid/single/'
                 ]
                 mean_scores = []
                 std_scores = []

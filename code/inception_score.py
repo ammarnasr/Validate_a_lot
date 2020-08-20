@@ -122,15 +122,20 @@ def get_inception_score(sess, images, pred_op):
 
 
         if i < 3 :
-            print(pred.shape)
-            print(pred)
+            print("Prediction Shape: ",pred.shape)
+            print("First Prediction: ",pred[0])
+            print("Sum of First Prediction: ",pred[0].sum())
+            print("Max of First Prediction: ",pred[0].max())
+            print("Min of First Prediction: ",pred[0].min())
+
 
 
 
         preds.append(pred)
-        # if i % 100 == 0:
-        #     print('Batch ', i)
-        #     print('inp', inp.shape, inp.max(), inp.min())
+        if i % 100 == 0:
+            print('Batch ', i)
+            print('inp', inp.shape, inp.max(), inp.min())
+            print('pred', pred.shape, pred.max(), pred.min())
     preds = np.concatenate(preds, 0)
 
     print("final preds :", preds)
